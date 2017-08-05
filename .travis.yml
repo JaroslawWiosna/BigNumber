@@ -1,0 +1,37 @@
+
+dist: trusty
+sudo: required
+
+language: cpp
+
+compiler:
+    - gcc
+    - clang
+
+install:
+    - if [ "$CXX" = "g++" ]; then export CXX="g++-6"; fi
+    - if [ "$CXX" = "clang++" ]; then export CXX="clang++-4.0"; fi
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports
+        packages:
+            - g++-6
+            - libopencv-dev
+            - libgtest-dev
+            - cmake
+            - cmake-data
+#            - libboost-all-dev
+
+before_script:
+    - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+
+script: 
+    - mkdir build
+    - cd build
+    - cmake -DBUILD_TESTS=ON .. 
+    - make
+    - make test
+
