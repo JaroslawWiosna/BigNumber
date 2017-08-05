@@ -6,7 +6,7 @@ language: cpp
 
 compiler:
     - gcc
-    - clang
+#    - clang
 
 install:
     - if [ "$CXX" = "g++" ]; then export CXX="g++-6"; fi
