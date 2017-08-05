@@ -1,0 +1,3 @@
+[submodule "BigNumberTests"]
+	path = BigNumberTests
+	url = https://github.com/JaroslawWiosna/BigNumberTests.git
