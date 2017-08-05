@@ -19,9 +19,9 @@ set(COMPILE_FLAGS "--std=gnu++11 -Wall -Wno-missing-braces")
 set(GTEST_FLAGS "-lgtest")
 set(LINK_FLAGS "-lpthread")
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  set(COMPILE_FLAGS  "${COMPILE_FLAGS} -stdlib=libstdc++")
-endif()
+#if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+#  set(COMPILE_FLAGS  "${COMPILE_FLAGS} -stdlib=libstdc++")
+#endif()
 
 if(BUILD_TESTS)
   set(LINK_FLAGS "${GTEST_FLAGS} ${LINK_FLAGS}")
