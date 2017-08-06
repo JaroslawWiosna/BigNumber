@@ -4,3 +4,6 @@
 #### Algorithms
 
 Karatsuba alg.
+
+#### Special thanks to
+https://gronlier.fr/blog/2015/01/adding-code-coverage-to-your-c-project/
