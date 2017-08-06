@@ -48,8 +48,8 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     std::vector<int> resVec{};
     for (unsigned int i=0; i<maxLength; ++i) {
 	int tmp = lhsVec[i] + rhsVec[i];
-        resVec.push_back(tmp%10 + carry);
-	carry = (tmp >= 10) ? 1 : 0;
+        resVec.push_back((tmp + carry)%10);
+	carry = ((tmp+carry) >= 10) ? 1 : 0;
     }
     if (carry == 1) {
         resVec.push_back(carry);
