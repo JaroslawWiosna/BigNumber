@@ -25,6 +25,8 @@ class BigNumber{
     BigNumber(int value = 0);
     const BigNumber operator+(const BigNumber&) const;
     BigNumber& operator+=(const BigNumber&);
+    const BigNumber operator*(const BigNumber&) const;
+    BigNumber& operator*=(const BigNumber&);
     std::vector<int> createVector() const;
     std::string mValue;
 };

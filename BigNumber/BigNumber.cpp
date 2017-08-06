@@ -65,6 +65,18 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     return *this;
 }
 
+
+const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
+    BigNumber result = *this;
+    result *= rhs;
+    return result;
+}
+
+BigNumber& BigNumber::operator*=(const BigNumber& rhs) {
+    // TODO: implement
+    return *this;
+}
+
 std::vector<int> BigNumber::createVector() const {
     int stringLength = mValue.length();
     std::vector<int> vec{};
