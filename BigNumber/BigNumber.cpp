@@ -26,12 +26,19 @@ const BigNumber BigNumber::operator+(const BigNumber& rhs) const{
 
 BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     auto lhsVec = createVector();
-    const auto rhsVec = rhs.createVector();
+    auto rhsVec = rhs.createVector();
     int carry{};
     int lhsLength = this->mValue.length();
-//    int rhsLength = rhs.mValue.length();
+    int rhsLength = rhs.mValue.length();
+    unsigned int maxLength = (lhsLength >= rhsLength) ? lhsLength : rhsLength;
+    while (lhsVec.size() < maxLength) {
+        lhsVec.push_back(0);
+    }
+    while (rhsVec.size() < maxLength) {
+        rhsVec.push_back(0);
+    }
     std::vector<int> resVec{};
-    for (int i=0; i<lhsLength; ++i) {
+    for (unsigned int i=0; i<maxLength; ++i) {
 	int tmp = lhsVec[i] + rhsVec[i];
         resVec.push_back(tmp%10 + carry);
 	/*
