@@ -18,6 +18,14 @@ BigNumber::BigNumber(int value) {
     mValue = std::to_string(value);
 }
 
+void BigNumber::setmValue(std::string str) {
+    mValue = str;
+}
+
+std::string BigNumber::getmValue() const{
+    return mValue;
+}
+
 const BigNumber BigNumber::operator+(const BigNumber& rhs) const{
     BigNumber result = *this;
     result += rhs;
@@ -28,8 +36,8 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     auto lhsVec = createVector();
     auto rhsVec = rhs.createVector();
     int carry{};
-    int lhsLength = this->mValue.length();
-    int rhsLength = rhs.mValue.length();
+    int lhsLength = this->getmValue().length();
+    int rhsLength = rhs.getmValue().length();
     unsigned int maxLength = (lhsLength >= rhsLength) ? lhsLength : rhsLength;
     while (lhsVec.size() < maxLength) {
         lhsVec.push_back(0);
@@ -46,10 +54,10 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     if (carry == 1) {
         resVec.push_back(carry);
     }   
-    this->mValue = "";
+    this->setmValue("");
     while (resVec.size() > 0) {
 	std::string tmp = std::to_string(resVec.back());
-        this->mValue += tmp;
+        this->setmValue(this->getmValue() + tmp);
 	resVec.pop_back();
     }
     return *this;
@@ -64,9 +72,9 @@ const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
 
 BigNumber& BigNumber::operator*=(const BigNumber& rhs) {
     // TODO: implement for BigNumbers
-    int lhsInt = std::stoi(this->mValue);
-    int rhsInt = std::stoi(rhs.mValue);
-    this->mValue = std::to_string(lhsInt * rhsInt);
+    int lhsInt = std::stoi(this->getmValue());
+    int rhsInt = std::stoi(rhs.getmValue());
+    this->setmValue(std::to_string(lhsInt * rhsInt));
     return *this;
 }
 

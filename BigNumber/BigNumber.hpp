@@ -23,11 +23,14 @@ class BigNumber{
   public:
     BigNumber(std::string value = "0");
     BigNumber(int value = 0);
+    void setmValue(std::string str);
+    std::string getmValue() const;
     const BigNumber operator+(const BigNumber&) const;
     BigNumber& operator+=(const BigNumber&);
     const BigNumber operator*(const BigNumber&) const;
     BigNumber& operator*=(const BigNumber&);
     std::vector<int> createVector() const;
+  private:
     std::string mValue;
 };
 
