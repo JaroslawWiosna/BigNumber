@@ -41,21 +41,11 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     for (unsigned int i=0; i<maxLength; ++i) {
 	int tmp = lhsVec[i] + rhsVec[i];
         resVec.push_back(tmp%10 + carry);
-	/*
-	if (tmp >= 10) {
-            carry = 1;
-        } else {
-            carry = 0;
-	}
-	*/
 	carry = (tmp >= 10) ? 1 : 0;
     }
     if (carry == 1) {
         resVec.push_back(carry);
     }   
-    for (const auto& i : resVec) {
-        std::cout << i << ", ";
-    }
     this->mValue = "";
     while (resVec.size() > 0) {
 	std::string tmp = std::to_string(resVec.back());
