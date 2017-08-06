@@ -73,7 +73,10 @@ const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
 }
 
 BigNumber& BigNumber::operator*=(const BigNumber& rhs) {
-    // TODO: implement
+    // TODO: implement for BigNumbers
+    int lhsInt = std::stoi(this->mValue);
+    int rhsInt = std::stoi(rhs.mValue);
+    this->mValue = std::to_string(lhsInt * rhsInt);
     return *this;
 }
 
