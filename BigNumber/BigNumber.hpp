@@ -27,8 +27,18 @@ class BigNumber{
     std::string getmValue() const;
     const BigNumber operator+(const BigNumber&) const;
     BigNumber& operator+=(const BigNumber&);
+    const BigNumber operator-(const BigNumber&) const;
+    BigNumber& operator-=(const BigNumber&);
     const BigNumber operator*(const BigNumber&) const;
     BigNumber& operator*=(const BigNumber&);
+    const BigNumber operator/(const BigNumber&) const;
+    BigNumber& operator/=(const BigNumber&);
+    BigNumber operator%(const BigNumber&);
+    bool operator==(const BigNumber&);
+    bool operator>(const BigNumber&);
+    bool operator<(const BigNumber&);
+    bool operator>=(const BigNumber&);
+    bool operator<=(const BigNumber&);
     std::vector<int> createVector() const;
   private:
     std::string mValue;

@@ -11,7 +11,19 @@
 #include "BigNumber.hpp"
 
 BigNumber::BigNumber(std::string value) {
-    mValue = value;
+    // check if this is power of ten
+    std::string powOfTenTo = "powerOfTenTo";
+    if (value.find(powOfTenTo) != std::string::npos) {
+	std::string str = value;
+        str.erase(str.begin(),str.begin()+powOfTenTo.length()); // cut prefix
+	mValue = "1";
+	std::size_t numberOfZeros = std::stoi(str);
+	for (std::size_t i=0; i<numberOfZeros; ++i) {
+            mValue += "0";
+	}
+    } else {
+        mValue = value;
+    }
 }
 
 BigNumber::BigNumber(int value) {
@@ -63,7 +75,16 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     return *this;
 }
 
+const BigNumber BigNumber::operator-(const BigNumber& rhs) const{
+    BigNumber result = *this;
+    result -= rhs;
+    return result;
+}
 
+BigNumber& BigNumber::operator-=(const BigNumber& rhs) {
+    // TODO: implement operator -=
+    return *this;
+}
 const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
     BigNumber result = *this;
     result *= rhs;
@@ -71,21 +92,100 @@ const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
 }
 
 BigNumber& BigNumber::operator*=(const BigNumber& rhs) {
-    // TODO: implement for BigNumbers
+    // check if any has trailing zeros
+    auto lhsVec = createVector();
+    auto rhsVec = rhs.createVector();
+    // TODO: implement trailing zeros
+
     int lhsInt = std::stoi(this->getmValue());
     int rhsInt = std::stoi(rhs.getmValue());
-    this->setmValue(std::to_string(lhsInt * rhsInt));
+    int temp;
+    if (__builtin_mul_overflow(lhsInt, rhsInt, &temp)) {
+        // TODO: implement for overflow
+#if 0
+        std::cout << "Overflow detected. Overflow handling not supported yet\n";
+	//int m{4};
+	//BigNumber powerOfTenToM{static_cast<int>(pow(10,m))};
+	BigNumber powerOfTenToM{"powerOfTenTo4"};
+	/*
+	int lhsHigh = *this%(powerOfTenToM);
+	int lhsLow = *this/(powerOfTenToM);
+	int rhsHigh = rhs%(powerOfTenToM);
+	int rhsLow = rhs/(powerOfTenToM);
+	int z2 = lhsHigh * rhsHigh;
+	int z0 = lhsLow * rhsLow;
+	int z1 = (lhsHigh + lhsLow) * (rhsHigh + rhsLow) - z2 - z0;
+	*/
+	BigNumber lhsHigh{*this%(powerOfTenToM)};
+	BigNumber lhsLow{*this/(powerOfTenToM)};
+	BigNumber rhsHigh{rhs%(powerOfTenToM)};
+	BigNumber rhsLow{rhs/(powerOfTenToM)};
+	BigNumber z2 = lhsHigh * rhsHigh;
+	BigNumber z0 = lhsLow * rhsLow;
+	BigNumber z1 = (lhsHigh + lhsLow) * (rhsHigh + rhsLow) - z2 - z0;
+	BigNumber result{(z2 * powerOfTenToM * powerOfTenToM) + (z1 * powerOfTenToM) + z0};
+	this->setmValue(result.getmValue());
+	return *this;
+#endif
+    } else {
+        this->setmValue(std::to_string(lhsInt * rhsInt));
+    }
     return *this;
+}
+
+const BigNumber BigNumber::operator/(const BigNumber& rhs) const{
+    BigNumber result = *this;
+    result *= rhs;
+    return result;
+}
+
+BigNumber& BigNumber::operator/=(const BigNumber& rhs) {
+    // TODO: implement operator /=
+    return *this;
+}
+
+BigNumber BigNumber::operator%(const BigNumber& rhs) {
+    // Big hack - count number of zeros 
+    // since we are using operator% only for powerOfTens
+    BigNumber result = *this;
+    auto numberOfZeros = rhs.getmValue().length() - 1;
+
+    std::string lhsStr = result.getmValue();
+    lhsStr.erase(lhsStr.end()-numberOfZeros,lhsStr.end()); // cut trailing zeros
+    result.setmValue(lhsStr);
+    return result;
+}
+
+bool BigNumber::operator==(const BigNumber& rhs) {
+    return (this->mValue == rhs.mValue);
+}
+
+bool BigNumber::operator>(const BigNumber& rhs) {
+    // TODO: implement >
+    return false;
+}
+
+bool BigNumber::operator<(const BigNumber& rhs) {
+    // TODO: implement <
+    return false;
+}
+
+bool BigNumber::operator>=(const BigNumber& rhs) {
+    return !(*this < rhs);
+}
+
+bool BigNumber::operator<=(const BigNumber& rhs) {
+    return !(*this > rhs);
 }
 
 std::vector<int> BigNumber::createVector() const {
     int stringLength = mValue.length();
     std::vector<int> vec{};
     vec.reserve(stringLength);
-
-    for (int i = stringLength-1; i>=0; --i) {
-	int tmp = mValue.at(i) - '0';
-        vec.push_back(tmp);
-    }
+        for (int i = stringLength-1; i>=0; --i) {
+            int tmp = mValue.at(i) - '0';
+            vec.push_back(tmp);
+        }
     return vec;
 }
+
