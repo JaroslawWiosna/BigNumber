@@ -83,6 +83,34 @@ const BigNumber BigNumber::operator-(const BigNumber& rhs) const{
 
 BigNumber& BigNumber::operator-=(const BigNumber& rhs) {
     // TODO: implement operator -=
+    auto lhsVec = createVector();
+    auto rhsVec = rhs.createVector();
+    lhsVec[lhsVec.size()-1] -= 1; // TODO: I know there is a better way, but I don't care right know.
+    for (unsigned int i=lhsVec.size()-2; i>0; --i) {
+        lhsVec[i] += 10;
+	lhsVec[i] -= 1;
+    }
+    lhsVec[0] += 10;
+
+    for (unsigned int i=0; i<lhsVec.size(); ++i) {
+        lhsVec[i] -= (i < rhsVec.size()) ? rhsVec[i] : 0;
+    }
+    int carry{};
+    for (unsigned int i=0; i<lhsVec.size(); ++i) {
+	lhsVec[i] += carry;
+	carry = 0;
+        if (lhsVec[i] >= 10) {
+	    lhsVec[i] -= 10;
+	    carry = 1;
+	}
+    }
+    this->setmValue("");
+    // FIXME: remove leading zeros
+    while (lhsVec.size() > 0) {
+	std::string tmp = std::to_string(lhsVec.back());
+        this->setmValue(this->getmValue() + tmp);
+	lhsVec.pop_back();
+    }
     return *this;
 }
 const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
