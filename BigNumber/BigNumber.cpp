@@ -75,6 +75,18 @@ BigNumber& BigNumber::operator+=(const BigNumber& rhs) {
     return *this;
 }
 
+BigNumber& BigNumber::operator++() {
+    BigNumber one{1};
+    *this += one;
+    return *this;
+}
+
+BigNumber BigNumber::operator++(int) {
+    BigNumber result = *this;
+    ++(*this);
+    return result;
+}
+
 const BigNumber BigNumber::operator-(const BigNumber& rhs) const{
     BigNumber result = *this;
     result -= rhs;
@@ -113,6 +125,19 @@ BigNumber& BigNumber::operator-=(const BigNumber& rhs) {
     }
     return *this;
 }
+
+BigNumber& BigNumber::operator--() {
+    BigNumber one{1};
+    *this -= one;
+    return *this;
+}
+
+BigNumber BigNumber::operator--(int) {
+    BigNumber result = *this;
+    --(*this);
+    return result;
+}
+
 const BigNumber BigNumber::operator*(const BigNumber& rhs) const{
     BigNumber result = *this;
     result *= rhs;
@@ -172,7 +197,14 @@ BigNumber& BigNumber::operator/=(const BigNumber& rhs) {
     return *this;
 }
 
-BigNumber BigNumber::operator%(const BigNumber& rhs) {
+const BigNumber BigNumber::operator%(const BigNumber& rhs) const{
+    BigNumber result = *this;
+    result %= rhs;
+    return result;
+}
+
+//TODO: result obj is not needed. Refactor it.
+BigNumber& BigNumber::operator%=(const BigNumber& rhs) {
     // Big hack - count number of zeros 
     // since we are using operator% only for powerOfTens
     BigNumber result = *this;
@@ -181,29 +213,53 @@ BigNumber BigNumber::operator%(const BigNumber& rhs) {
     std::string lhsStr = result.getmValue();
     lhsStr.erase(lhsStr.end()-numberOfZeros,lhsStr.end()); // cut trailing zeros
     result.setmValue(lhsStr);
-    return result;
+    this->setmValue(lhsStr);
+    return *this;
 }
 
 bool BigNumber::operator==(const BigNumber& rhs) {
     return (this->mValue == rhs.mValue);
 }
 
-bool BigNumber::operator>(const BigNumber& rhs) {
-    // TODO: implement >
-    return false;
+bool BigNumber::operator!=(const BigNumber& rhs) {
+    return !(*this == rhs);
 }
 
-bool BigNumber::operator<(const BigNumber& rhs) {
-    // TODO: implement <
-    return false;
+bool BigNumber::operator>(const BigNumber& rhs) const {
+    // FIXME: should be fixed when negative numbers will be introduced
+    auto lhsVec = createVector();
+    auto rhsVec = rhs.createVector();
+
+    int lhsLength = lhsVec.size();
+    int rhsLength = rhsVec.size();
+
+    if (lhsLength == rhsLength) {
+        for (int i=lhsLength; i>0; --i) {
+            if (lhsVec[i] != rhsVec[i]) {
+                return lhsVec[i] > rhsVec[i];
+	    }
+	}
+	return false;
+    } else {
+        return lhsLength > rhsLength;
+    }
 }
 
-bool BigNumber::operator>=(const BigNumber& rhs) {
+bool BigNumber::operator<(const BigNumber& rhs) const {
+    return (rhs > *this);
+}
+
+bool BigNumber::operator>=(const BigNumber& rhs) const {
     return !(*this < rhs);
 }
 
-bool BigNumber::operator<=(const BigNumber& rhs) {
+bool BigNumber::operator<=(const BigNumber& rhs) const {
     return !(*this > rhs);
+}
+
+std::ostream& operator<<(std::ostream& os, const BigNumber& value) {
+    os << value.getmValue();
+    return os;
 }
 
 std::vector<int> BigNumber::createVector() const {
