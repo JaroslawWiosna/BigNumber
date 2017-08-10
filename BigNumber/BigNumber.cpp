@@ -10,6 +10,8 @@
 
 #include "BigNumber.hpp"
 
+#if 0
+// old ctors
 BigNumber::BigNumber(std::string value) {
     // check if this is power of ten
     std::string powOfTenTo = "powerOfTenTo";
@@ -29,6 +31,7 @@ BigNumber::BigNumber(std::string value) {
 BigNumber::BigNumber(int value) {
     mValue = std::to_string(value);
 }
+#endif
 
 void BigNumber::setmValue(std::string str) {
     mValue = str;

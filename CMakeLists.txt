@@ -14,8 +14,8 @@ cmake_minimum_required (VERSION 2.6)
 option(SANITIZER "Address Sanitizer" OFF)
 option(BUILD_TESTS "Build tests" ON)
 
-set(CMAKE_CXX_STANDARD 11)
-set(COMPILE_FLAGS "--std=gnu++11 -Wall -Wno-missing-braces --coverage")
+#set(CMAKE_CXX_STANDARD 17)
+set(COMPILE_FLAGS "--std=gnu++17 -Wall -Wno-missing-braces -fconcepts --coverage")
 set(GTEST_FLAGS "-lgtest")
 set(LINK_FLAGS "-lpthread")
 
