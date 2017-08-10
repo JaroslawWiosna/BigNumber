@@ -32,7 +32,7 @@ class BigNumber{
     explicit constexpr BigNumber(T&& value)
     requires (std::is_constructible<std::string, T>::value) : mValue{std::forward<T>(value)} {
         // check if this is power of ten
-        std::string powOfTenTo = "powerOfTenTo";
+        std::string powOfTenTo = "powerOfTenTo"; // prefix
         if (mValue.find(powOfTenTo) != std::string::npos) {
 	    std::string str = mValue;
             str.erase(str.begin(),str.begin()+powOfTenTo.length()); // cut prefix
@@ -50,8 +50,11 @@ class BigNumber{
         
     }
 
-    BigNumber& operator=(BigNumber value) {
-        mValue = value.mValue;
+    BigNumber& operator=(BigNumber rhs) {
+        if (this == rhs) {
+            return *this;
+	}
+        mValue = rhs.mValue;
 	return *this;
     }
 
@@ -65,11 +68,6 @@ class BigNumber{
         mValue = "0"; //FIXME: Is it really needed?
     }
 
-#if 0
-    // old ctors
-    BigNumber(std::string value = "0");
-    BigNumber(int value = 0);
-#endif
     void setmValue(std::string str);
     std::string getmValue() const;
     const BigNumber operator+(const BigNumber&) const;
