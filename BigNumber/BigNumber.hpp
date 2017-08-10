@@ -50,8 +50,8 @@ class BigNumber{
         
     }
 
-    BigNumber& operator=(BigNumber rhs) {
-        if (this == rhs) {
+    BigNumber& operator=(const BigNumber &rhs) {
+        if (this == &rhs) {
             return *this;
 	}
         mValue = rhs.mValue;
