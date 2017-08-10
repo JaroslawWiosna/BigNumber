@@ -50,11 +50,16 @@ class BigNumber{
         
     }
 
-    BigNumber& operator=(const BigNumber &rhs) {
+    BigNumber& operator=(const BigNumber& rhs) {
         if (this == &rhs) {
             return *this;
 	}
         mValue = rhs.mValue;
+	return *this;
+    }
+
+    BigNumber& operator=(const int& rhs) {
+        mValue = std::to_string(rhs);
 	return *this;
     }
 
