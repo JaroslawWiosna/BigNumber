@@ -8,6 +8,7 @@
 > C++17 Lib for Big Numbers
 
   - [Overview](#overview)
+  - [How to clone?](#how-to-clone)
   - [Algorithms](#algorithms)
   - [Special thanks to](#special-thanks-to)
 
@@ -15,6 +16,24 @@
 
 ## Overview
 
+
+---
+
+## How to clone?
+
+This repository has a submodule inside. In order to clone the repo with submodule use
+```sh
+git clone --recursive https://github.com/JaroslawWiosna/BigNumber.git
+cd BigNumber
+```
+...or if you have already cloned the repo without `recursive` flag:
+```sh
+git clone https://github.com/JaroslawWiosna/BigNumber.git
+cd BigNumber
+git submodule update --init --recursive
+```
+
+[Thanks to mklement0](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules)
 
 ---
 
