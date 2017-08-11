@@ -13,6 +13,8 @@ cmake_minimum_required (VERSION 2.6)
 
 option(SANITIZER "Address Sanitizer" OFF)
 option(BUILD_TESTS "Build tests" ON)
+#option(BUILD_LONG_RUNNING_TESTS "Build long running tests" OFF)
+option(BUILD_LONG_RUNNING_TESTS "Build tests" OFF)
 
 #set(CMAKE_CXX_STANDARD 17)
 set(COMPILE_FLAGS "--std=gnu++17 -Wall -Wno-missing-braces -fconcepts --coverage")
