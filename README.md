@@ -1,6 +1,7 @@
 [![Licence](https://img.shields.io/github/license/JaroslawWiosna/BigNumber.svg)]()
 [![Release](https://img.shields.io/github/release/JaroslawWiosna/BigNumber.svg?maxAge=3600)](https://github.com/JaroslawWiosna/BigNumber/releases)
 [![GitHub contributors](https://img.shields.io/github/contributors/JaroslawWiosna/BigNumber.svg)]()
+[![Travis status](https://travis-ci.org/JaroslawWiosna/BigNumber.svg)](https://travis-ci.org/JaroslawWiosna/BigNumber)
 [![Coverage Status](https://coveralls.io/repos/github/JaroslawWiosna/BigNumber/badge.svg)](https://coveralls.io/github/JaroslawWiosna/BigNumber)
 # BigNumber
 
