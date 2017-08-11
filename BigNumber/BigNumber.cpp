@@ -168,13 +168,23 @@ BigNumber& BigNumber::operator*=(const BigNumber& rhs) {
 
 const BigNumber BigNumber::operator/(const BigNumber& rhs) const{
     BigNumber result = *this;
-    result *= rhs;
+    result /= rhs;
     return result;
 }
 
 BigNumber& BigNumber::operator/=(const BigNumber& rhs) {
     // TODO: implement operator /=
-    return *this;
+    int divident = std::stoi(getmValue());
+    int divisor = std::stoi(rhs.getmValue());
+    auto lhsVec = createVector();
+
+    if (0) {
+        // TODO: implement for overflow - but is there even overflow in division?
+	throw;
+    } else {
+        this->setmValue(std::to_string(divident / divisor));
+        return *this;
+    }
 }
 
 const BigNumber BigNumber::operator%(const BigNumber& rhs) const{
