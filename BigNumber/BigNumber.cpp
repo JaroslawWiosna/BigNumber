@@ -10,26 +10,6 @@
 
 #include "BigNumber.hpp"
 
-BigNumber::BigNumber(std::string value) {
-    // check if this is power of ten
-    std::string powOfTenTo = "powerOfTenTo";
-    if (value.find(powOfTenTo) != std::string::npos) {
-	std::string str = value;
-        str.erase(str.begin(),str.begin()+powOfTenTo.length()); // cut prefix
-	mValue = "1";
-	std::size_t numberOfZeros = std::stoi(str);
-	for (std::size_t i=0; i<numberOfZeros; ++i) {
-            mValue += "0";
-	}
-    } else {
-        mValue = value;
-    }
-}
-
-BigNumber::BigNumber(int value) {
-    mValue = std::to_string(value);
-}
-
 void BigNumber::setmValue(std::string str) {
     mValue = str;
 }
