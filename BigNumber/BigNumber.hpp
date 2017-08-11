@@ -95,6 +95,12 @@ class BigNumber{
     bool operator<(const BigNumber&) const;
     bool operator>=(const BigNumber&) const;
     bool operator<=(const BigNumber&) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const BigNumber& value) {
+        os << value.getmValue();
+        return os;
+    }
+
     std::vector<int> createVector() const;
   private:
     std::string mValue;

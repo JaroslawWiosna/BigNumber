@@ -247,11 +247,6 @@ bool BigNumber::operator<=(const BigNumber& rhs) const {
     return !(*this > rhs);
 }
 
-std::ostream& operator<<(std::ostream& os, const BigNumber& value) {
-    os << value.getmValue();
-    return os;
-}
-
 std::vector<int> BigNumber::createVector() const {
     int stringLength = mValue.length();
     std::vector<int> vec{};
